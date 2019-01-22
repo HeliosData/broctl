@@ -90,6 +90,12 @@ fi
 
 dest_dir=`dirname "$dest"`
 
+if [ ! -d "$dest_dir" ]; then
+    pushd ${logdir}
+    find . -maxdepth 1 ! -iname current -exec rm -rf {} \;
+    popd
+fi
+
 mkdir -p "$dest_dir" # Makes sure all parent directories exist.
 if [ $? -ne 0 ]; then
     echo "archive-log: failed to create log archive directory: $dest_dir" >&2
